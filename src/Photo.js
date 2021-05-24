@@ -8,17 +8,21 @@ const Photo = ({
 		name,
 		profile_image: { medium: profil_img },
 		portfolio_url
-	}
+	},
+	links: { download },
+	loading
 }) => {
 	return (
 		<article className="photo">
-			<img src={url} alt={desc} />
+			<a href={download} target="_blank" rel="noopener noreferrer">
+				<img src={url} alt={desc} />
+			</a>
 			<div className="photo-info">
 				<div>
 					<h4>{name}</h4>
 					<p>{likes} likes</p>
 				</div>
-				<a href={portfolio_url}>
+				<a href={portfolio_url} target="_blank" rel="noopener noreferrer">
 					<img src={profil_img} alt={name} />
 				</a>
 			</div>

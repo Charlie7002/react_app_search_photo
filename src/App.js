@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FaSearch } from "react-icons/fa";
+
+import { AiOutlineSearch } from "react-icons/ai";
+import { FcImageFile } from "react-icons/fc";
 import Photo from "./Photo";
+import loader from "./loader.svg";
 
 console.clear();
 
@@ -50,7 +53,6 @@ function App() {
 			});
 
 			if (data.total === 0) {
-				console.log("ooooooooooooooooooo");
 				setEmpty(true);
 			}
 
@@ -100,27 +102,37 @@ function App() {
 	return (
 		<main>
 			<section className="search">
+				<div className="main-title">
+					<div className="title-img">
+						<FcImageFile />
+					</div>
+					<h1>Image Search</h1>
+				</div>
 				<form className="search-form">
 					<input type="text" placeholder="Search" className="form-input" value={query} onChange={handleChange} />
 					<button type="submit" className="submit-btn" onClick={handleSubmit}>
-						<FaSearch />
+						<AiOutlineSearch />
 					</button>
 				</form>
 			</section>
 			{empty ? (
-				<p>BBBooooouuuu ya rien</p>
+				<p className="no-result">Sorry, no result. Try again.</p>
 			) : (
 				<section className="photos">
 					<div className="photos-center">
 						{photos.map((photo) => {
 							const { id } = photo;
-							return <Photo key={id} {...photo} />;
+							return <Photo key={id} {...photo} loading={loading} />;
 						})}
 					</div>
 				</section>
 			)}
 
-			{loading && <h2 className="loading">... Loading</h2>}
+			{loading && (
+				<div className="loader-container">
+					<img src={loader} />
+				</div>
+			)}
 		</main>
 	);
 }
